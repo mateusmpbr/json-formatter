@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>JSON Formatter</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <header>
+      <h1 id="title">JSON Formatter</h1>
+      <h2>
+        by <a href="https://github.com/mateusmpbr/json-formatter">mateusmpbr</a>
+      </h2>
+    </header>
+    <main>
+      <textarea id="input" placeholder="Paste JSON here"></textarea>
+      <div>
+        <pre id="output" aria-live="polite"></pre>
+      </div>
+      <div id="controls">
+        <button id="formatBtn">Format</button>
+        <button id="minifyBtn">Minify</button>
+        <button id="validateBtn">Validate</button>
+        <button id="pasteBtn" title="Paste input">Paste input</button>
+        <button id="copyBtn" title="Copy output">Copy output</button>
+      </div>
+    </main>
+    <div
+      id="toast"
+      class="toast"
+      aria-live="polite"
+      aria-atomic="true"
+      hidden
+    ></div>
+    <script src="index.js" type="module"></script>
+  </body>
+</html>

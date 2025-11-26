@@ -1,0 +1,180 @@
+:root {
+  --bg: #f7f9fb;
+  --card: #ffffff;
+  --accent: #0b5fff;
+  --text: #0f1720;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+    "Courier New", monospace;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+/* Pin the page title to the top-left corner */
+header {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1300;
+}
+header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--text);
+}
+header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--text);
+}
+main {
+  width: min(1400px, 96vw);
+  background: var(--card);
+  box-shadow: 0 8px 30px rgba(12, 18, 30, 0.08);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+  min-height: 72vh;
+}
+textarea#input {
+  width: 100%;
+  min-height: calc(60vh - 2rem);
+  height: auto;
+  resize: vertical;
+  padding: 1rem;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  border: 1px solid #e4e7ec;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+pre#output {
+  width: 100%;
+  /* Fixed visual height so the box doesn't expand for large JSONs */
+  height: calc(60vh - 2rem);
+  padding: 1rem;
+  margin: 0;
+  background: #0b1220;
+  color: #e6f2ff;
+  overflow-y: auto; /* vertical scroll kept inside the box */
+  overflow-x: hidden;
+  /* Allow long minified JSON lines to break inside the box */
+  white-space: pre-wrap; /* preserve existing newlines, but allow wrapping */
+  overflow-wrap: anywhere; /* break long words/strings if needed */
+  word-break: break-word;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+}
+#controls {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:active {
+  transform: translateY(1px);
+}
+
+/* Copy button styling (smaller / secondary) */
+#copyBtn,
+#pasteBtn {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(11, 95, 255, 0.12);
+  padding: 0.45rem 0.6rem;
+}
+
+#copyBtn.clicked,
+#pasteBtn.clicked {
+  background: #0f1720;
+  color: #dff3ff;
+  border-color: rgba(11, 95, 255, 0.2);
+}
+
+/* Position copy button inside the output box */
+.output-wrap {
+  position: relative;
+}
+
+@media (max-width: 1100px) {
+  main {
+    width: calc(100vw - 2rem);
+  }
+}
+
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 1rem;
+  }
+  textarea#input,
+  pre#output {
+    min-height: 40vh;
+  }
+  #controls {
+    justify-content: center;
+  }
+}
+
+/* Ensure consistent box-sizing */
+textarea,
+pre,
+button {
+  box-sizing: border-box;
+}
+
+/* Toast for transient messages (validation/copy feedback) */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 180px;
+  max-width: calc(100vw - 40px);
+  background: rgba(15, 23, 32, 0.95);
+  color: #e6f2ff;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(12, 18, 30, 0.15);
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 1200;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.toast.ok {
+  background: rgba(6, 125, 24, 0.95);
+}
+.toast.err {
+  background: rgba(185, 28, 28, 0.95);
+}
